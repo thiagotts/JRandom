@@ -1,4 +1,4 @@
 jrandom
 =======
 
-Java implementation of a gatherer of true random numbers from publicly available services.
+Java implementation of a collector of true random numbers from publicly available services.
