@@ -105,6 +105,23 @@ public class RandomOrgTests {
         assertEquals(3, (int) result.get(2));
 
     }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void IfStringResponseIsInvalidMustThrowException() {
+        RandomOrg randomOrg = new RandomOrg(3, 0, 10);
+        String response = "1a2b3\n";
+
+        List<Integer> result = randomOrg.turnStringResponseIntoIntegerArray(response);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void IfStringResponseIsEmptyMustThrowException() {
+        RandomOrg randomOrg = new RandomOrg(3, 0, 10);
+        String response = "";
+
+        List<Integer> result = randomOrg.turnStringResponseIntoIntegerArray(response);
+    }
+    
 
     @Test
     public void MustReturnASingleIntegerThatsGreaterThanZeroAndLessThan10() throws IOException {
@@ -116,5 +133,16 @@ public class RandomOrgTests {
         assertEquals(1, integers.size());
         assertTrue(integers.get(0) > 0 && integers.get(0) < 10);        
     }
+    
+    @Test
+    public void MustReturn10IntegersGreaterThan100AndLessThan200() throws IOException {
+        RandomOrg randomOrg = new RandomOrg(10, 100, 200);
+
+         List<Integer> integers = randomOrg.getIntegers();
+
+        assertNotNull(integers);
+        assertEquals(10, integers.size());
+        assertTrue(integers.get(0) > 100 && integers.get(0) < 200);        
+    }    
 
 }
