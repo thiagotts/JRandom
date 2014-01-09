@@ -9,7 +9,6 @@ nbactions.xml
 nb-configuration.xml
 
 # Package Files #
-*.jar
 *.war
 *.ear
 

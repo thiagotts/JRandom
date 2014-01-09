@@ -12,6 +12,7 @@ public class RandomOrg {
     private final int amount;
     private final int minValue;
     private final int maxValue;
+    
 
     public RandomOrg(int amount, int minValue, int maxValue) {
         checkIfValuesAreValid(amount, minValue, maxValue);

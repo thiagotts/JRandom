@@ -5,7 +5,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-public class RandomOrgTests {
+public class RandomOrgTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void TheAmountShouldNotBeLessThanZero() {
@@ -122,7 +122,6 @@ public class RandomOrgTests {
         List<Integer> result = randomOrg.turnStringResponseIntoIntegerArray(response);
     }
     
-
     @Test
     public void MustReturnASingleIntegerThatsGreaterThanZeroAndLessThan10() throws IOException {
         RandomOrg randomOrg = new RandomOrg(1, 0, 10);
@@ -142,7 +141,9 @@ public class RandomOrgTests {
 
         assertNotNull(integers);
         assertEquals(10, integers.size());
-        assertTrue(integers.get(0) > 100 && integers.get(0) < 200);        
+        for(Integer integer : integers) {
+            assertTrue(integer > 100 && integer < 200);    
+        }      
     }    
 
 }
