@@ -15,3 +15,4 @@ nb-configuration.xml
 JRandom/nbproject/private/
 JRandom/build/
 JRandom/dist/
+/mavenproject/target/
