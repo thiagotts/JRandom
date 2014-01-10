@@ -124,7 +124,7 @@ public class RandomOrgTest {
     
     @Test
     public void MustReturnASingleIntegerThatsGreaterThanZeroAndLessThan10() throws IOException {
-        RandomOrg randomOrg = new RandomOrg(1, 0, 10);
+        RandomOrg randomOrg = new RandomOrg(1, 1, 9);
 
          List<Integer> integers = randomOrg.getIntegers();
 
