@@ -5,15 +5,11 @@ build/
 nbbuild/
 dist/
 nbdist/
+target/
 nbactions.xml
 nb-configuration.xml
 
 # Package Files #
+*.jar
 *.war
 *.ear
-
-JRandom/nbproject/private/
-JRandom/build/
-JRandom/dist/
-/mavenproject/target/
-/jrandom/target/
