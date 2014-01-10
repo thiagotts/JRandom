@@ -135,7 +135,7 @@ public class RandomOrgTest {
     
     @Test
     public void MustReturn10IntegersGreaterThan100AndLessThan200() throws IOException {
-        RandomOrg randomOrg = new RandomOrg(10, 100, 200);
+        RandomOrg randomOrg = new RandomOrg(10, 101, 199);
 
          List<Integer> integers = randomOrg.getIntegers();
 
