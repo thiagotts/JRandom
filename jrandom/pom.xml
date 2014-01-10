@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>jrandom</groupId>
-  <artifactId>mavenproject</artifactId>
+  <artifactId>jrandom</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>mavenproject</name>
+  <name>jrandom</name>
   <url>http://maven.apache.org</url>
     <build>
         <plugins>
