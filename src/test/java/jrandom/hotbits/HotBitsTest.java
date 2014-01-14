@@ -3,8 +3,10 @@ package jrandom.hotbits;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import jrandom.NumberCollector;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import static org.mockito.Mockito.*;
 
 public class HotBitsTest {
     
@@ -50,24 +52,51 @@ public class HotBitsTest {
         assertEquals(256, integers.size());
     }
 
-    @Test
-    public void WhenAmountIsGreaterThan2048TheServerReturns2048Numbers() throws IOException {
+    @Test(expected = IllegalArgumentException.class)
+    public void TheAmountCannotBeGreaterThan2048() throws IOException {
         HotBits hotBits = new HotBits(3000);
 
         List<Integer> integers = hotBits.getIntegers();
-
-        assertNotNull(integers);
-        assertEquals(2048, integers.size());
     }
 
-    @Test
-    public void WhenAmountIsLessThanMinus2048TheServerReturns2048Numbers() throws IOException {
+    @Test(expected = IllegalArgumentException.class)
+    public void TheAmountCannotBeessThanMinus2048() throws IOException {
         HotBits hotBits = new HotBits(-3000);
 
         List<Integer> integers = hotBits.getIntegers();
-
-        assertNotNull(integers);
-        assertEquals(2048, integers.size());
     }
+    
+    @Test(expected = IOException.class)
+    public void WhenResponseIsInvalidMustThrowException() throws IOException {
+        HotBits hotBits = new HotBits(5);
+        NumberCollector mockCollector = mock(NumberCollector.class);        
+        hotBits.setNumberCollector(mockCollector);
+        
+        when(mockCollector.collect()).thenReturn("Test\n for\n invalid\n response\n.\n");
+        
+        List<Integer> integers = hotBits.getIntegers();        
+    }    
+    
+    @Test(expected = IOException.class)
+    public void IfStringResponseIsEmptyMustThrowException() throws IOException {
+        HotBits hotBits = new HotBits(5);
+        NumberCollector mockCollector = mock(NumberCollector.class);        
+        hotBits.setNumberCollector(mockCollector);
+        
+        when(mockCollector.collect()).thenReturn("");
+        
+        List<Integer> integers = hotBits.getIntegers();
+    }    
+    
+    @Test(expected = IOException.class)
+    public void IfStringResponseIsNullMustThrowException() throws IOException {
+        HotBits hotBits = new HotBits(5);
+        NumberCollector mockCollector = mock(NumberCollector.class);        
+        hotBits.setNumberCollector(mockCollector);
+        
+        when(mockCollector.collect()).thenReturn(null);
+        
+        List<Integer> integers = hotBits.getIntegers();
+    }      
 
 }

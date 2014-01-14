@@ -3,9 +3,10 @@ package jrandom.randomorg;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import jrandom.NumberCollector;
 import jrandom.Service;
 
-public class RandomOrg extends Service {
+public final class RandomOrg extends Service {
 
     public RandomOrg(int amount, int minValue, int maxValue) {
         checkIfValuesAreValid(amount, minValue, maxValue);
@@ -13,6 +14,7 @@ public class RandomOrg extends Service {
         this.amount = amount;
         this.minValue = minValue;
         this.maxValue = maxValue;
+        setNumberCollector(new NumberCollector(getRequestUrl(), getBufferSize()));
     }
 
     private void checkIfValuesAreValid(int amount, int minValue, int maxValue) throws IllegalArgumentException {
@@ -35,7 +37,7 @@ public class RandomOrg extends Service {
 
     @Override
     public List<Integer> getIntegers() throws IOException {
-        String receivedString = requestNumbersToRandomOrgService();
+        String receivedString = numberCollector.collect();
         return turnStringResponseIntoIntegerArray(receivedString);
     }
 
@@ -55,16 +57,20 @@ public class RandomOrg extends Service {
     }
 
     @Override
-    protected List<Integer> turnStringResponseIntoIntegerArray(String response) {
-        String[] strings = response.replace('\n', ' ').trim().split("\t");
-
-        List<Integer> integers = new ArrayList<>();
-        for (String string : strings) {
-            int parsedInt = Integer.parseInt(string);
-            integers.add(parsedInt);
+    protected List<Integer> turnStringResponseIntoIntegerArray(String response) throws IOException {
+        try {
+            String[] strings = response.replace('\n', ' ').trim().split("\t");
+            
+            List<Integer> integers = new ArrayList<>();
+            for (String string : strings) {
+                int parsedInt = Integer.parseInt(string);
+                integers.add(parsedInt);
+            }
+            
+            return integers;
+        } catch (NumberFormatException | NullPointerException exception) {
+            throw new IOException("Service response was invalid: " + exception.getMessage());
         }
-
-        return integers;
     }
 
 }

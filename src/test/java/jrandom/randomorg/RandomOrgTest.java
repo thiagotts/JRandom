@@ -2,9 +2,10 @@ package jrandom.randomorg;
 
 import java.io.IOException;
 import java.util.List;
-import jrandom.Service;
+import jrandom.NumberCollector;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import static org.mockito.Mockito.*;
 
 public class RandomOrgTest {
 
@@ -78,7 +79,7 @@ public class RandomOrgTest {
     }
 
     @Test
-    public void MustTurnAValidStringResponseIntoAnIntegerArray() {
+    public void MustTurnAValidStringResponseIntoAnIntegerArray() throws IOException {
         RandomOrg randomOrg = new RandomOrg(3, 0, 10);
         String response = "1\t2\t3\n";
 
@@ -89,22 +90,6 @@ public class RandomOrgTest {
         assertEquals(2, (int) result.get(1));
         assertEquals(3, (int) result.get(2));
 
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void IfStringResponseIsInvalidMustThrowException() {
-        RandomOrg randomOrg = new RandomOrg(3, 0, 10);
-        String response = "1a2b3\n";
-
-        List<Integer> result = randomOrg.turnStringResponseIntoIntegerArray(response);
-    }
-    
-    @Test(expected = IllegalArgumentException.class)
-    public void IfStringResponseIsEmptyMustThrowException() {
-        RandomOrg randomOrg = new RandomOrg(3, 0, 10);
-        String response = "";
-
-        List<Integer> result = randomOrg.turnStringResponseIntoIntegerArray(response);
     }
     
     @Test
@@ -130,5 +115,38 @@ public class RandomOrgTest {
             assertTrue(integer > 100 && integer < 200);    
         }      
     }    
+    
+    @Test(expected = IOException.class)
+    public void WhenResponseIsInvalidMustThrowException() throws IOException {
+        RandomOrg randomOrg = new RandomOrg(1, 1, 9);
+        NumberCollector mockCollector = mock(NumberCollector.class);        
+        randomOrg.setNumberCollector(mockCollector);
+        
+        when(mockCollector.collect()).thenReturn("Test\n for\n invalid\n response\n.\n");
+        
+        List<Integer> integers = randomOrg.getIntegers();        
+    }      
+    
+    @Test(expected = IOException.class)
+    public void IfStringResponseIsEmptyMustThrowException() throws IOException {
+        RandomOrg randomOrg = new RandomOrg(1, 1, 9);
+        NumberCollector mockCollector = mock(NumberCollector.class);        
+        randomOrg.setNumberCollector(mockCollector);
+        
+        when(mockCollector.collect()).thenReturn("");
+        
+        List<Integer> integers = randomOrg.getIntegers();
+    }    
+    
+    @Test(expected = IOException.class)
+    public void IfStringResponseIsNullMustThrowException() throws IOException {
+        RandomOrg randomOrg = new RandomOrg(1, 1, 9);
+        NumberCollector mockCollector = mock(NumberCollector.class);        
+        randomOrg.setNumberCollector(mockCollector);
+        
+        when(mockCollector.collect()).thenReturn(null);
+        
+        List<Integer> integers = randomOrg.getIntegers();
+    }     
 
 }
