@@ -2,6 +2,7 @@ package jrandom.randomorg;
 
 import java.io.IOException;
 import java.util.List;
+import jrandom.Service;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -74,22 +75,6 @@ public class RandomOrgTest {
 
         assertNotNull(requestUrl);
         assertEquals("http://www.random.org/integers/?num=1&min=0&max=10&col=1&base=10&format=plain&rnd=new", requestUrl);
-    }
-
-    @Test
-    public void RequestNumbersMustReturnAValidString() throws IOException {
-        RandomOrg randomOrg = new RandomOrg(3, 0, 10);
-
-        String response = randomOrg.requestNumbersToRandomOrgService();
-
-        assertNotNull(response);
-        String[] integers = response.replace('\n', ' ').trim().split("\t");
-        assertNotNull(integers);
-        
-        for (String integer : integers) {
-            int parsedInt = Integer.parseInt(integer);
-            assertNotNull(parsedInt);
-        }
     }
 
     @Test
