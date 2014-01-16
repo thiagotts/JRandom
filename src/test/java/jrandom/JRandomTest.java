@@ -1,7 +1,10 @@
 package jrandom;
 
+import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
 import java.io.IOException;
+import jrandom.hotbits.HotBits;
+import jrandom.randomorg.RandomOrg;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -26,7 +29,7 @@ public class JRandomTest {
     
     @Test
     public void CallingWithAllParametersShortNamesWithValidValuesMustReturnAValidResponse() throws IOException {
-        String[] args = new String[]{"-min", "1", "-max", "100", "-a", "10"};
+        String[] args = new String[]{"-min", "1", "-max", "100", "-a", "10", "-s", "randomorg"};
 
         String result = JRandom.run(args);
 
@@ -41,6 +44,50 @@ public class JRandomTest {
             assertNotNull(parsedInt);
         }
     }
+    
+    @Test
+    public void CallingWithRandomOrgAsServiceMustReturnARandomOrgInstance() throws IOException {
+        String[] args = new String[]{"-amount", "10", "-min", "1", "-max", "100", "-service", "randomorg"};
+        CommandLineParameters parameters = new CommandLineParameters();
+        JCommander jCommander = new JCommander(parameters, args);
+
+        Service service = JRandom.getService(parameters);
+        
+        assertTrue(service instanceof RandomOrg);
+    }
+    
+    @Test
+    public void CallingWithHotBitsAsServiceMustReturnAHotBitsInstance() throws IOException {
+        String[] args = new String[]{"-amount", "10", "-min", "1", "-max", "100", "-s", "hotbits"};
+        CommandLineParameters parameters = new CommandLineParameters();
+        JCommander jCommander = new JCommander(parameters, args);
+
+        Service service = JRandom.getService(parameters);
+        
+        assertTrue(service instanceof HotBits);
+    }    
+    
+    @Test
+    public void CallingWithoutAServiceMustReturnARandomOrgInstance() throws IOException {
+        String[] args = new String[]{"-amount", "10", "-min", "1", "-max", "100"};
+        CommandLineParameters parameters = new CommandLineParameters();
+        JCommander jCommander = new JCommander(parameters, args);
+
+        Service service = JRandom.getService(parameters);
+        
+        assertTrue(service instanceof RandomOrg);
+    }
+    
+    @Test
+    public void CallingWithAnEmptyStringAsServiceMustReturnARandomOrgInstance() throws IOException {
+        String[] args = new String[]{"-amount", "10", "-min", "1", "-max", "100", "-s", " "};
+        CommandLineParameters parameters = new CommandLineParameters();
+        JCommander jCommander = new JCommander(parameters, args);
+
+        Service service = JRandom.getService(parameters);
+        
+        assertTrue(service instanceof RandomOrg);
+    }    
     
     @Test(expected = ParameterException.class)
     public void CallingWithNonExistentParameterMustThrowException() throws IOException {

@@ -13,4 +13,7 @@ public class CommandLineParameters {
     @Parameter(names = "-max", description = "Maximum value", required = true)
     protected Integer maxValue = 1;
     
+    @Parameter(names = {"-service", "-s"}, description = "Service from which to collect random numbers.")
+    protected String service;
+    
 }
