@@ -1,5 +1,4 @@
-JRandom
-=======
+# JRandom
 [![Build Status](https://secure.travis-ci.org/thiagotts/JRandom.png)](http://travis-ci.org/thiagotts/JRandom)
 
 JRandom is a collector of [true random numbers][randomness] from free publicly available services. You can use it as
@@ -8,8 +7,7 @@ to [Random.org][randomorg] and [HotBits][hotbits].
 
 
 
-### Command line
-------
+## Command line
 
 In order to use JRandom as a command line tool, clone this repository or [download it][download] and extract the files. Then build
 it with maven:
@@ -43,8 +41,7 @@ Not informing a required parameter simply shows an informative message:
 
 
 
-### API
-------
+## API
 
 To use JRandom in your system, clone this repository or [download it][download] and extract the files. If you use maven to
 build your project, build JRandom like so:
@@ -96,20 +93,18 @@ Which will result in something like:
 
 
 
-### Quotas
-------
+## Quotas
 
 Please notice that all services limit the amount of numbers you can collect daily. These limitations are generally based on your IP address.
 Refer to each service documentation to get detailed information about these quotas.
 
 
 
-### License
-------
+## License
 
 License information can be found in the LICENSE file. Yet, here's an excerpt that I am particularly fond of:
 
->  11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
+> BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
 > FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW.  EXCEPT WHEN
 > OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES
 > PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED
