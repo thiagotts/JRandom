@@ -1,7 +1,7 @@
-package jrandom;
+package jrandom.services;
 
-import jrandom.hotbits.HotBits;
-import jrandom.randomorg.RandomOrg;
+import jrandom.CommandLineParameters;
+import jrandom.StringConvertible;
 
 public class ServiceConverter implements StringConvertible<Service> {
 
@@ -15,7 +15,7 @@ public class ServiceConverter implements StringConvertible<Service> {
     public Service convert(String value) {
         switch (value == null ? "" : value) {
             case "hotbits":
-                return new HotBits(parameters.amount);
+                return new HotBits(parameters.amount, parameters.minValue, parameters.maxValue);
                 
             default:
                 return new RandomOrg(parameters.amount, parameters.minValue, parameters.maxValue);

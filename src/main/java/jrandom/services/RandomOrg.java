@@ -1,38 +1,20 @@
-package jrandom.randomorg;
+package jrandom.services;
 
+import com.beust.jcommander.ParameterException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import jrandom.NumberCollector;
-import jrandom.Service;
 
 public final class RandomOrg extends Service {
 
-    public RandomOrg(int amount, int minValue, int maxValue) {
-        checkIfValuesAreValid(amount, minValue, maxValue);
-
+    public RandomOrg(int amount, Integer minValue, Integer maxValue) {
         this.amount = amount;
         this.minValue = minValue;
         this.maxValue = maxValue;
+        validateParameters();
+        
         setNumberCollector(new NumberCollector(getRequestUrl(), getBufferSize()));
-    }
-
-    private void checkIfValuesAreValid(int amount, int minValue, int maxValue) throws IllegalArgumentException {
-        if (amount < 1 || amount > 10000) {
-            throw new IllegalArgumentException("The amount must be an integer in the [1,10000] interval.");
-        }
-
-        if (minValue < -1000000000 || minValue > 1000000000) {
-            throw new IllegalArgumentException("The minimum value must be an integer in the [-1000000000,1000000000] interval.");
-        }
-
-        if (maxValue < -1000000000 || maxValue > 1000000000) {
-            throw new IllegalArgumentException("The maximum value must be an integer in the [-1000000000,1000000000] interval.");
-        }
-
-        if (minValue >= maxValue) {
-            throw new IllegalArgumentException("The maximum value must be greater than the minimum value.");
-        }
     }
 
     @Override
@@ -70,6 +52,33 @@ public final class RandomOrg extends Service {
             return integers;
         } catch (NumberFormatException | NullPointerException exception) {
             throw new IOException("Service response was invalid: " + exception.getMessage());
+        }
+    }
+    
+    @Override
+    protected void validateParameters() throws IllegalArgumentException {
+        if(minValue == null) {
+            throw new ParameterException("The minimum value is required: -min");
+        }
+        
+        if (maxValue == null) {
+            throw new ParameterException("The maximum value is required: -max");
+        }
+        
+        if (amount < 1 || amount > 10000) {
+            throw new IllegalArgumentException("The amount must be an integer in the [1,10000] interval.");
+        }
+
+        if (minValue < -1000000000 || minValue > 1000000000) {
+            throw new IllegalArgumentException("The minimum value must be an integer in the [-1000000000,1000000000] interval.");
+        }
+
+        if (maxValue < -1000000000 || maxValue > 1000000000) {
+            throw new IllegalArgumentException("The maximum value must be an integer in the [-1000000000,1000000000] interval.");
+        }
+
+        if (minValue >= maxValue) {
+            throw new IllegalArgumentException("The maximum value must be greater than the minimum value.");
         }
     }
 

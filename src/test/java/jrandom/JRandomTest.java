@@ -1,10 +1,11 @@
 package jrandom;
 
+import jrandom.services.Service;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
 import java.io.IOException;
-import jrandom.hotbits.HotBits;
-import jrandom.randomorg.RandomOrg;
+import jrandom.services.HotBits;
+import jrandom.services.RandomOrg;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -58,7 +59,7 @@ public class JRandomTest {
     
     @Test
     public void CallingWithHotBitsAsServiceMustReturnAHotBitsInstance() throws IOException {
-        String[] args = new String[]{"-amount", "10", "-min", "1", "-max", "100", "-s", "hotbits"};
+        String[] args = new String[]{"-amount", "10", "-s", "hotbits"};
         CommandLineParameters parameters = new CommandLineParameters();
         JCommander jCommander = new JCommander(parameters, args);
 
@@ -132,17 +133,39 @@ public class JRandomTest {
     }    
     
     @Test(expected = ParameterException.class)
-    public void CallingWithoutMinimumValueMustThrowException() throws IOException {
+    public void CallingWithoutMinimumValueForRandomOrgMustThrowParameterException() throws IOException {
         String[] args = new String[]{"-a", "1", "-max", "100"};
 
         String result = JRandom.run(args);
     }     
     
     @Test(expected = ParameterException.class)
-    public void CallingWithoutMaximumValueMustThrowException() throws IOException {
+    public void CallingWithoutMaximumValueForRandomOrgMustThrowParameterException() throws IOException {
         String[] args = new String[]{"-a", "1", "-min", "10"};
 
         String result = JRandom.run(args);
-    }     
+    }   
+    
+    @Test
+    public void CallingWithMinimumValueForHotBitsMustGenerateWarningMessage() throws IOException {
+        String[] args = new String[]{"-a", "1", "-min", "10", "-s", "hotbits"};
+        CommandLineParameters parameters = new CommandLineParameters();
+        JCommander jCommander = new JCommander(parameters, args);
+
+        Service service = JRandom.getService(parameters);
+        
+        assertEquals("HotBits does not use minimum values. Parameter will be ignored.", service.getWarningMessages().get(0));
+    }
+
+    @Test
+    public void CallingWithMaximumValueForHotBitsMustGenerateWarningMessage() throws IOException {
+        String[] args = new String[]{"-a", "1", "-max", "10", "-s", "hotbits"};
+        CommandLineParameters parameters = new CommandLineParameters();
+        JCommander jCommander = new JCommander(parameters, args);
+
+        Service service = JRandom.getService(parameters);
+        
+        assertEquals("HotBits does not use maximum values. Parameter will be ignored.", service.getWarningMessages().get(0));        
+    }    
 
 }

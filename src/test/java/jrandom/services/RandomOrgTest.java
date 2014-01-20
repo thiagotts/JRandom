@@ -1,5 +1,7 @@
-package jrandom.randomorg;
+package jrandom.services;
 
+import jrandom.services.RandomOrg;
+import com.beust.jcommander.ParameterException;
 import java.io.IOException;
 import java.util.List;
 import jrandom.NumberCollector;
@@ -8,6 +10,16 @@ import org.junit.Test;
 import static org.mockito.Mockito.*;
 
 public class RandomOrgTest {
+    
+    @Test(expected = ParameterException.class)
+    public void TheMinimumValueIsRequired() {
+        RandomOrg randomOrg = new RandomOrg(-1, null, 10);
+    }
+    
+    @Test(expected = ParameterException.class)
+    public void TheMaximumValueIsRequired() {
+        RandomOrg randomOrg = new RandomOrg(-1, 1, null);
+    }    
 
     @Test(expected = IllegalArgumentException.class)
     public void TheAmountShouldNotBeLessThanZero() {
