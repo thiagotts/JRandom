@@ -103,6 +103,23 @@ Please notice that all services limit the amount of numbers you can collect dail
 Refer to each service documentation to get detailed information about these quotas.
 
 
+
+### License
+------
+
+License information can be found in the LICENSE file. Yet, here's an excerpt that I am particularly fond of:
+
+>  11. BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
+> FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW.  EXCEPT WHEN
+> OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES
+> PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED
+> OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+> MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.  THE ENTIRE RISK AS
+> TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU.  SHOULD THE
+> PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING,
+> REPAIR OR CORRECTION.
+
+
 [randomness]: http://www.random.org/randomness/
 [randomorg]: http://www.random.org/
 [hotbits]: http://www.fourmilab.ch/hotbits/
