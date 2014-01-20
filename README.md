@@ -8,48 +8,48 @@ to [Random.org][randomorg] and [HotBits][hotbits].
 
 ### Command line
 
-In order to use JRandom as a command line tool, clone this repository or [download it] and extract the files. Then build
+In order to use JRandom as a command line tool, clone this repository or [download it][download] and extract the files. Then build
 it with maven:
 
-    mvn clean compile assembly:single
+    $ mvn clean compile assembly:single
 
 This will create an executable jar file named something like jrandom-{version}-jar-with-dependencies.jar inside the target
 folder. I renamed the file to jrandom.jar to make examples more readable.
 
 Requesting 10 random numbers in the interval [0, 100] to Random.org:
 
-    java -jar jrandom.jar -amount 10 -min 0 -max 100 -service randomorg
+    $ java -jar jrandom.jar -amount 10 -min 0 -max 100 -service randomorg
     85	73	11	43	96	3	69	47	35	62	
 
 It is possible to use short names for paramaters. Not providing a service uses Random.org as default:
 
-    java -jar jrandom.jar -a 10 -min 0 -max 100
-    3	    4	    5	    6	    4
+    $ java -jar jrandom.jar -a 5 -min 0 -max 100
+    69	    52	    44	    57	    74	
 
-Since HotBits always returns numbers in the [0, 255], max and min parameters are ignored:
+Since HotBits always returns numbers in the [0, 255] interval, max and min parameters are ignored:
 
-    java -jar jrandom.jar -a 5 -min 0 -max 100 -s hotbits
+    $ java -jar jrandom.jar -a 5 -min 0 -max 100 -s hotbits
     HotBits does not use minimum values. Parameter will be ignored.
     HotBits does not use maximum values. Parameter will be ignored.
     243	    118	    161	    118	    189	
 
 Not informing a required parameter simply shows an informative message:
 
-    java -jar jrandom.jar -min 0 -max 100
+    $ java -jar jrandom.jar -min 0 -max 100
     The following option is required: -amount, -a
 
 
 ### API
 
-To use JRandom in your system, clone this repository or [download it] and extract the files. If you use maven to
+To use JRandom in your system, clone this repository or [download it][download] and extract the files. If you use maven to
 build your project, build JRandom like so:
 
-    mvn clean compile package
+    $ mvn clean compile package
 
 Then add it as a dependency to your project. If you don't use Maven, add the full jar file with all depencies included as showed
 in the previous section.
 
-The following program requests 10 random number in the interval [-10, 10] to Random.org:
+The following program requests 10 random numbers in the interval [-10, 10] to Random.org:
 
 ```java
 import java.io.IOException;
