@@ -6,7 +6,10 @@ JRandom is a collector of [true random numbers][randomness] from free publicly a
 a command line tool or you can integrate it into your system using a very simple API. It currently supports requests
 to [Random.org][randomorg] and [HotBits][hotbits].
 
+
+
 ### Command line
+------
 
 In order to use JRandom as a command line tool, clone this repository or [download it][download] and extract the files. Then build
 it with maven:
@@ -39,7 +42,9 @@ Not informing a required parameter simply shows an informative message:
     The following option is required: -amount, -a
 
 
+
 ### API
+------
 
 To use JRandom in your system, clone this repository or [download it][download] and extract the files. If you use maven to
 build your project, build JRandom like so:
@@ -76,7 +81,7 @@ import java.io.IOException;
 import jrandom.services.HotBits;
 import jrandom.services.RandomOrg;
 
-public class JrandomUsage {
+public class JRandomUsage {
 
     public static void main(String[] args) throws IOException {
         HotBits hotBits = new HotBits(5);
@@ -89,7 +94,10 @@ Which will result in something like:
 
     [248, 57, 184, 35, 110]
 
+
+
 ### Quotas
+------
 
 Please notice that all services limit the amount of numbers you can collect daily. These limitations are generally based on your IP address.
 Refer to each service documentation to get detailed information about these quotas.
